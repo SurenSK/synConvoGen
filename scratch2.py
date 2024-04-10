@@ -12,9 +12,7 @@ messages = [
 ]
 
 encodeds = tokenizer.apply_chat_template(messages, return_tensors="pt")
-
 model_inputs = encodeds.to(device)
-
 generated_ids = model.generate(model_inputs, max_new_tokens=1000, do_sample=True)
 decoded = tokenizer.batch_decode(generated_ids)
 print(decoded[0])
