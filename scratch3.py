@@ -34,7 +34,7 @@ personas = {
 }
 
 frame0 = [{"role": "user", "content": f"{personas[persona]} "}]
-frame1 = [{"role": "user", "content": f"{personas["normal"]} "}]
+frame1 = [{"role": "user", "content": "You are a helpful AI assistant. "}]
 
 nResp = get_resp(frame0)
 frame0.append({"role": "assistant", "content": nResp})
