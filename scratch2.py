@@ -1,8 +1,8 @@
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
-device = "cuda:1" # the device to load the model onto
+device = "cuda" # the device to load the model onto
 
-model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True)
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", in_8bit=True)
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
 
 messages = [
