@@ -19,7 +19,7 @@ def get_resp(history):
     
     encodeds = tokenizer.apply_chat_template(history, return_tensors="pt")
     model_inputs = encodeds.to(device)
-    generated_ids = model.generate(model_inputs, max_new_tokens=1000, do_sample=True)
+    generated_ids = model.generate(model_inputs, max_new_tokens=50, do_sample=True)
     decoded = tokenizer.batch_decode(generated_ids)
     return decoded[0]
 
@@ -29,12 +29,12 @@ persona = "type1"
 
 personas = {
     "normal": "You are a helpful AI assistant.",
-    "type1": f"Type1 stuff {task}.",
+    "type1": f"You don't know to perform the task of {task}. Ask questions one at a time. You can ask up to {nTurns} questions in total.",
     "type2": f"Type2 stuff {task}."
 }
 
-frame0 = [{"role": "user", "content": f"You are a helpful AI assistant. Ask questions one at a time. You can ask up to {nTurns} questions in total."}]
-frame1 = [{"role": "user", "content": f"{personas[persona]} "}]
+frame0 = [{"role": "user", "content": f"{personas[persona]} "}]
+frame1 = [{"role": "user", "content": f"{personas["normal"]} "}]
 
 nResp = get_resp(frame0)
 frame0.append({"role": "assistant", "content": nResp})
