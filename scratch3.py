@@ -54,5 +54,5 @@ for _ in range(nTurns):
 def printFrame(frame):
     for i,turn in enumerate(frame):
         print(f"{i} {turn['role']}: {turn['content']}\n")
-print(frame0)
-print(frame1)
+printFrame(frame0)
+printFrame(frame1)
