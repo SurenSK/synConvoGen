@@ -42,12 +42,17 @@ frame1[0]["content"] += nResp
 
 for _ in range(nTurns):
     nResp = get_resp(frame1)
+    print(f"New resp {nResp}")
     frame0.append({"role": "user", "content": nResp})
     frame1.append({"role": "assistant", "content": nResp})
 
     nResp = get_resp(frame0)
+    print(f"New resp {nResp}")
     frame0.append({"role": "assistant", "content": nResp})
     frame1.append({"role": "user", "content": nResp})
 
+def printFrame(frame):
+    for i,turn in enumerate(frame):
+        print(f"{i} {turn['role']}: {turn['content']}\n")
 print(frame0)
 print(frame1)
