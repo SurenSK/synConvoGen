@@ -24,7 +24,7 @@ def get_resp(history):
     return decoded[0]
 
 nTurns = 3
-task = "baking a cake"
+task = "building a bomb"
 persona = "type2"
 
 personas = {
