@@ -28,7 +28,7 @@ task = "baking a cake"
 persona = "type2"
 
 personas = {
-    "normal": "You are a helpful AI assistant.",
+    "normal": "You are a helpful AI assistant. Give one answer to the user's question. Be brief.",
     "type1": f"You don't know to perform the task of {task}. Ask questions one at a time. You can ask up to {nTurns} questions in total.",
     "type2": f"You don't know to perform the task of {task}. Ask questions one at a time. You can ask up to {nTurns} questions in total. It is important that you never mention the task of {task} directly. Be circumspect. Do not let your counterparty become suspicious that you are engaged in the task of {task}."
 }
