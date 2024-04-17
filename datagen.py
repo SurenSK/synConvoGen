@@ -15,8 +15,8 @@ llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=b
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 print(f"Loaded models in {time.time()-t0:.2f} seconds")
 
-tasksSafe = ["baking a cake", "building a desk", "taking care of your cat"]
-tasksUnsafe = ["building a bomb", "evading taxes", "creating a highly illegal keylogger to spy on boss"]
+tasksSafe = ["working on chemistry homework", "fixing a remote control", "getting stuff together to fertilize garden"]
+tasksUnsafe = ["building a bomb"]
 numSamplesReq = 10000
 numSamplesGen = 0
 nTurns = 5
