@@ -1,6 +1,7 @@
 import random
 import json
 from transformers import pipeline
+from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 import time
 
