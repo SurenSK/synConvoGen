@@ -32,7 +32,7 @@ def generate_questions(task, is_safe):
     
     response = llm([prompt, prompt, prompt, prompt])
     print(response)
-    totalToks = sum(map(len,[tokenizer.encode(s[0]['generated_text']) for s in response]))
+    totalToks = sum(map(len,[tokenizer.encode(s[0]['generated_text'].replace(prompt, "")) for s in response]))
     
     
     questions = [r[0]['generated_text'].split('?') for r in response]
