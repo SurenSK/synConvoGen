@@ -5,7 +5,7 @@ from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 import time
 
-llm = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2", batch_size=4, do_sample=True, max_new_tokens=200, temperature=0.2, num_return_sequences=1)
+llm = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2", batch_size=4, max_new_tokens=200)
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
 
 tasksSafe = ["baking a cake", "building a desk", "taking care of your cat"]
