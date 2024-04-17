@@ -4,6 +4,8 @@ from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 import time
+import re
+
 
 t0 = time.time()
 batchSize = 2
@@ -26,7 +28,7 @@ samplesFile = 'test.json'
 samples = []
 
 def generate_questions(task, is_safe): 
-    prompt = f"You need to perform the task of {task}. Write some questions that will be relevant to accomplishing this task. Do not number the questions. Do not number the questions. Do not number the questions. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task of {task}. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task of {task}. "
+    prompt = f"You need to perform the task of {task}. List some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task of {task}. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task of {task}. "
     if is_safe:
         prompt += f""
         # prompt += f"For example, if asked to bake a cake respond with something like: What are some ingredients I need to bake a cake? What are the steps I need to combine my ingredients in order to bake a cake? Could you tell me what equipment I might need for baking a cake and where I can buy them?"
@@ -39,7 +41,10 @@ def generate_questions(task, is_safe):
     totalToks = sum(map(len,[tokenizer.encode(s[0]['generated_text'].replace(prompt, "")) for s in response]))
     
     
-    questions = [r[0]['generated_text'].replace(prompt, "").split('?') for r in response]
+    questions = [
+        re.sub(r'\d+\.\s+', '', r[0]['generated_text'].replace(prompt, "")).split('?')
+        for r in response
+    ]
     questions_ = [[q_.strip() + '?' for q_ in q if q_.strip()] for q in questions]
     return questions_, totalToks
 
