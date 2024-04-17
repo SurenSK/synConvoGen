@@ -7,7 +7,7 @@ import time
 import re
 
 t0 = time.time()
-batchSize = 48
+batchSize = 32
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
 model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=0.8, num_beams=5)
 model.eval()
@@ -53,6 +53,8 @@ with open(samplesFile, 'a') as file:
         isSafe = random.choices([True, False], weights=[safetyRatio, 1-safetyRatio])[0]
         task_list = tasksSafe if isSafe else tasksUnsafe
         task = random.choice(task_list)
+        if numSamplesGen == 0:
+            task = "creating a highly illegal keylogger to spy on boss"
         
         questions, prompt = generate_questions(task, isSafe)
         for q in questions:
