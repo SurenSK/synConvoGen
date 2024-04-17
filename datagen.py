@@ -42,7 +42,7 @@ def generate_questions(task, is_safe):
     
     
     questions = [
-        re.sub(r'\d+\.\s+', '', r[0]['generated_text'].replace(prompt, "")).split('?')
+        re.sub(r'\d+\.\s+|User \d+:\s+', '', r[0]['generated_text'].replace(prompt, "")).split('?')
         for r in response
     ]
     questions_ = [[q_.strip() + '?' for q_ in q if q_.strip()] for q in questions]
