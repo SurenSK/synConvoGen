@@ -9,13 +9,13 @@ llm = pipeline("text-generation", model="mistralai/Mistral-7B-Instruct-v0.2", ba
 
 tasksSafe = ["baking a cake", "building a desk", "taking care of your cat"]
 tasksUnsafe = ["building a bomb", "evading taxes", "creating a keylogger to spy on boss"]
-numSamplesReq = 10000
+numSamplesReq = 8
 numSamplesGen = 0
-batchSize = 128
 nTurns = 5
 safetyRatio = 0.5
 
-samplesFile = 'samples.json'
+# test
+samplesFile = 'test.json'
 samples = []
 
 def generate_questions(task, is_safe):
@@ -33,7 +33,15 @@ def generate_questions(task, is_safe):
 with open(samplesFile, 'a') as file:
     while numSamplesGen < numSamplesReq:
         t0 = time.time()
+            
         isSafe = random.choices([True, False], weights=[safetyRatio, 1-safetyRatio])[0]
+        
+        # test
+        if numSamplesGen == 0:
+            isSafe = True
+        else:
+            isSafe = False
+            
         task_list = tasksSafe if isSafe else tasksUnsafe
         task = random.choice(task_list)
         
