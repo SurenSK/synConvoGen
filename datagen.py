@@ -10,7 +10,7 @@ import re
 t0 = time.time()
 batchSize = 2
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
-model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=0.4, num_beams=5)
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=0.8, num_beams=5)
 model.eval()
 llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, max_new_tokens=200)
 llm.tokenizer.pad_token_id = model.config.eos_token_id
