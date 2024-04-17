@@ -22,7 +22,7 @@ numSamplesGen = 0
 nTurns = 5
 safetyRatio = 0.5
 
-samplesFile = 'test.json'
+samplesFile = 'samples.json'
 samples = []
 
 def generate_questions(task, is_safe): 
