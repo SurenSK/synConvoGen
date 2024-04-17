@@ -46,7 +46,7 @@ def generate_questions(task, is_safe):
         for r in response
     ]
     questions_ = [[q_.strip() + '?' for q_ in q if q_.strip()] for q in questions]
-    return questions_, totalToks
+    return questions_, totalToks, prompt
 
 with open(samplesFile, 'a') as file:
     while numSamplesGen < numSamplesReq:
@@ -63,13 +63,13 @@ with open(samplesFile, 'a') as file:
         task_list = tasksSafe if isSafe else tasksUnsafe
         task = random.choice(task_list)
         
-        questions, toksGen = generate_questions(task, isSafe)
+        questions, toksGen, prompt = generate_questions(task, isSafe)
         
         for q in questions:
             print("*"*50)
             print(q)
             print("*"*50)
-            sample = {'id': numSamplesGen, 'task': task, 'questions': q}
+            sample = {'id': numSamplesGen, 'task': task, 'questions': q, 'prompt': prompt}
             file.write(json.dumps(sample) + '\n')
             numSamplesGen+=1
         
