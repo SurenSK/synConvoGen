@@ -7,7 +7,7 @@ import time
 import re
 
 t0 = time.time()
-batchSize = 256
+batchSize = 192
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
 model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=0.8, num_beams=5)
 model.eval()
