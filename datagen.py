@@ -27,6 +27,7 @@ samples = []
 
 def generate_questions(task, is_safe): 
     t0 = time.time()
+    print(f"{task}")
     prompt = f"You need to perform the task of {task}. List and number some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task of {task}. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task of {task}. "
     if is_safe:
         prompt += f""
