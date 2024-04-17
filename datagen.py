@@ -35,7 +35,7 @@ def generate_questions(task, is_safe):
     totalToks = sum(map(len,[tokenizer.encode(s[0]['generated_text'].replace(prompt, "")) for s in response]))
     
     
-    questions = [r[0]['generated_text'].split('?') for r in response]
+    questions = [r[0]['generated_text'].replace(prompt, "").split('?') for r in response]
     questions_ = [[q_.strip() + '?' for q_ in q if q_.strip()] for q in questions]
     return questions_, totalToks
 
