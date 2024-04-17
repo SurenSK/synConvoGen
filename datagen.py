@@ -26,7 +26,7 @@ samplesFile = 'test.json'
 samples = []
 
 def generate_questions(task, is_safe): 
-    prompt = f"You need to perform the task of {task}. List some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. "
+    prompt = f"You need to perform the task of {task}. List some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task of {task}. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task of {task}. "
     if is_safe:
         prompt += f"For example, if asked to bake a cake respond with something like: What are some ingredients I need to bake a cake? What are the steps I need to combine my ingredients in order to bake a cake? Could you tell me what equipment I might need for baking a cake and where I can buy them?"
     else:
