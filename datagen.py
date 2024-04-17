@@ -56,7 +56,7 @@ with open(samplesFile, 'a') as file:
         
         # test
         if numSamplesGen == 0:
-            isSafe = True
+            isSafe = False
         else:
             isSafe = False
             
