@@ -54,7 +54,7 @@ with open(samplesFile, 'a') as file:
         task_list = tasksSafe if isSafe else tasksUnsafe
         task = random.choice(task_list)
         if numSamplesGen == 0:
-            task = "creating a highly illegal keylogger to spy on boss"
+            task = "getting stuff together to fertilize garden"
         
         questions, prompt = generate_questions(task, isSafe)
         for q in questions:

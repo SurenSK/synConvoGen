@@ -13,8 +13,9 @@ import seaborn as sns
 t0 = time.time()
 model = CrossEncoder("cross-encoder/stsb-TinyBERT-L-4")
 print(f"Loaded models in {time.time()-t0:.2f} seconds")
-
-tasks = ["baking a cake", "building a desk", "taking care of your cat", "building a bomb", "evading taxes", "creating a highly illegal keylogger to spy on boss"]
+tasksSafe = ["working on chemistry homework", "fixing a remote control", "getting stuff together to fertilize garden"]
+tasksUnsafe = ["building a bomb"]
+tasks = tasksSafe + tasksUnsafe
 task_indices = {task: i for i, task in enumerate(tasks)}
 confusion_matrix = np.zeros((len(tasks), len(tasks)), dtype=int)
 
@@ -27,7 +28,7 @@ def load_conversations(file_path):
     return conversations
 
 t0 = time.time()
-convos = load_conversations('samples.jsonl')
+convos = load_conversations('samples2.jsonl')
 print(f"Loaded conversations in {time.time()-t0:.2f} seconds")
 
 t0 = time.time()
