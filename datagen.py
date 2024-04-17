@@ -39,7 +39,7 @@ def generate_questions(task, is_safe):
     response = llm([prompt]*batchSize)
     # print(response)
     totalToks = sum(map(len,[tokenizer.encode(s[0]['generated_text'].replace(prompt, "")) for s in response]))
-    print(f"Samples {numSamplesGen}/{numSamplesReq}. Toks/s: {totalToks/(time.time()-t0):.2f}")
+    print(f"Samples {numSamplesGen+batchSize}/{numSamplesReq}. Toks/s: {totalToks/(time.time()-t0):.2f}")
     
     questions = [
         re.sub(r'\d+\.\s+|User \d+:\s+', '', r[0]['generated_text'].replace(prompt, "")).split('?')
