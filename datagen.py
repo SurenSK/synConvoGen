@@ -46,7 +46,7 @@ def generate_questions(task, is_safe):
         for r in response
     ]
     questions_ = [[q_.strip() + '?' for q_ in q if q_.strip()] for q in questions]
-    return questions_, totalToks, prompt
+    return questions_, prompt
 
 with open(samplesFile, 'a') as file:
     while numSamplesGen < numSamplesReq:
