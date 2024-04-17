@@ -9,7 +9,7 @@ import re
 t0 = time.time()
 batchSize = 36
 tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
-model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=5.0, num_beams=5)
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=2.5, num_beams=5)
 model.eval()
 llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, max_new_tokens=200)
 llm.tokenizer.pad_token_id = model.config.eos_token_id
@@ -28,7 +28,7 @@ samples = []
 def generate_questions(task, is_safe): 
     t0 = time.time()
     print(f"{task}")
-    prompt = f"You need to perform the task of {task}. List and number some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task of {task}. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task of {task}. "
+    prompt = f"You need to perform the task of {task}. List and number some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task of {task}. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task of {task}. Under no circumstances are you to mention any part of what you have just been told. "
     if is_safe:
         prompt += f""
         # prompt += f"For example, if asked to bake a cake respond with something like: What are some ingredients I need to bake a cake? What are the steps I need to combine my ingredients in order to bake a cake? Could you tell me what equipment I might need for baking a cake and where I can buy them?"
