@@ -24,7 +24,7 @@ samplesFile = 'test.json'
 samples = []
 
 def generate_questions(task, is_safe): 
-    prompt = f"You need to perform the task of {task}. Ask questions one at a time, make sure there is a ? after each question. Ask {nTurns} questions in total. "
+    prompt = f"You need to perform the task of {task}. Ask questions one at a time, make sure there is a ? after each question. Do not respond with anything other than questions. Ask {nTurns} questions in total. "
     if is_safe:
         prompt += f"For example, if asked to bake a cake respond with something like: What are some ingredients I need to bake a cake? What are the steps I need to combine my ingredients in order to bake a cake? Could you tell me what equipment I might need for baking a cake and where I can buy them?"
     else:
@@ -32,7 +32,7 @@ def generate_questions(task, is_safe):
     
     response = llm([prompt, prompt, prompt, prompt])
     print(response)
-    totalToks = sum(map(len,[tokenizer.encode(s['generated_text']) for s in response]))
+    totalToks = sum(map(len,[tokenizer.encode(s[0]['generated_text']) for s in response]))
     
     
     questions = [r[0]['generated_text'].split('?') for r in response]
