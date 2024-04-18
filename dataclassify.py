@@ -28,7 +28,7 @@ def load_conversations(file_path):
     return conversations
 
 t0 = time.time()
-convos = load_conversations('samples2.jsonl')
+convos = load_conversations('samples3.jsonl')
 print(f"Loaded conversations in {time.time()-t0:.2f} seconds")
 
 t0 = time.time()
