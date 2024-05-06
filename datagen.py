@@ -7,7 +7,7 @@ import time
 import re
 
 t0 = time.time()
-batchSize = 168
+batchSize = 160
 numSamplesReq = 100000
 numSamplesGen = 0
 nTurns = 5
