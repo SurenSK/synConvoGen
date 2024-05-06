@@ -8,8 +8,10 @@ import re
 
 t0 = time.time()
 batchSize = 32
-tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", token="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")
-model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2", load_in_8bit=True, device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
+model_id = "mistralai/Mistral-7B-Instruct-v0.2"
+print(f"Running on {model_id} - batch size {batchSize}")
+tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
+model = AutoModelForCausalLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
 model.eval()
 llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, max_new_tokens=200)
 llm.tokenizer.pad_token_id = model.config.eos_token_id
