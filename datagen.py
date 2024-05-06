@@ -7,7 +7,7 @@ import time
 import re
 
 t0 = time.time()
-batchSize = 32
+batchSize = 128
 model_id = "mistralai/Mistral-7B-Instruct-v0.2"
 print(f"Running on {model_id} - batch size {batchSize}")
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
