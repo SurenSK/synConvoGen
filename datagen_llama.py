@@ -5,13 +5,13 @@ import torch
 import os
 import time
 import re
-
+from transformers import AutoTokenizer, AutoModelForCausalLM
 # Initialize timing and settings
 t0 = time.time()
 batchSize = 32
 model_id = "meta-llama/Meta-Llama-3-70B-Instruct"
-tokenizer = transformers.AutoTokenizer.from_pretrained(model_id, token="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")
-model = transformers.AutoModelForSeq2SeqLM.from_pretrained(
+tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
+model = AutoModelForCausalLM.from_pretrained(
     model_id, load_in_8bit=True, device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
 model.eval()
 llm = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, device='auto')
