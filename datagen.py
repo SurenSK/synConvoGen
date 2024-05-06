@@ -7,22 +7,24 @@ import time
 import re
 
 t0 = time.time()
-batchSize = 128
+batchSize = 168
+numSamplesReq = 100000
+numSamplesGen = 0
+nTurns = 5
+safetyRatio = 0.5
+
 model_id = "mistralai/Mistral-7B-Instruct-v0.2"
 print(f"Running on {model_id} - batch size {batchSize}")
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
 model.eval()
-llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, max_new_tokens=200)
+llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, max_new_tokens=nTurns*40)
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 print(f"Loaded models in {time.time()-t0:.2f} seconds")
 
 tasksSafe = ["doing chemistry homework", "repairing a TV remote", "fixing telemtary code"]
 tasksUnsafe = ["building a bomb", "hacking a computer", "breaking into a house"]
-numSamplesReq = 100000
-numSamplesGen = 0
-nTurns = 5
-safetyRatio = 0.5
+
 
 samplesFile = 'samples5.json'
 samples = []
