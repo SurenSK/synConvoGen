@@ -8,7 +8,7 @@ import re
 
 t0 = time.time()
 batchSize = 160
-numSamplesReq = 100000
+numSamplesReq = 1000
 numSamplesGen = 0
 nTurns = 5
 safetyRatio = 0.5
@@ -53,6 +53,7 @@ def generate_questions(task, is_safe):
     return questions_, prompt
 
 with open(samplesFile, 'a') as file:
+    tGenStart = time.time()
     while numSamplesGen < numSamplesReq:
         isSafe = random.choices([True, False], weights=[safetyRatio, 1-safetyRatio])[0]
         isSafe = False
@@ -61,6 +62,7 @@ with open(samplesFile, 'a') as file:
         if numSamplesGen == 0:
             task = max(task_list, key=len)
         
+
         questions, prompt = generate_questions(task, isSafe)
         for q in questions:
             print("*"*50)
@@ -69,4 +71,5 @@ with open(samplesFile, 'a') as file:
             sample = {'id': numSamplesGen, 'task': task, 'questions': q, 'prompt': prompt}
             file.write(json.dumps(sample) + '\n')
             numSamplesGen+=1
-        
+    tGenEnd = time.time()
+    print(f"it/s {numSamplesGen/(tGenEnd-tGenStart)}")
