@@ -67,8 +67,9 @@ with open(samplesFile, 'a') as file:
         if numSamplesGen == 0:
             task = max(task_list, key=len)
         
-
+        tBatchStart = time.time()
         questions, prompt = generate_questions(task, isSafe)
+        tBatchEnd = time.time()
         for q in questions:
             # print("*"*50)
             # print(q)
@@ -76,5 +77,6 @@ with open(samplesFile, 'a') as file:
             sample = {'id': numSamplesGen, 'task': task, 'questions': q, 'prompt': prompt}
             file.write(json.dumps(sample) + '\n')
             numSamplesGen+=1
+        print(f"tReq = {tBatchEnd - tBatchStart} - {numSamplesGen} / {numSamplesReq}")
     tGenEnd = time.time()
     print(f"it/s {numSamplesGen/(tGenEnd-tGenStart)}")
