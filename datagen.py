@@ -65,9 +65,9 @@ with open(samplesFile, 'a') as file:
 
         questions, prompt = generate_questions(task, isSafe)
         for q in questions:
-            print("*"*50)
-            print(q)
-            print("*"*50)
+            # print("*"*50)
+            # print(q)
+            # print("*"*50)
             sample = {'id': numSamplesGen, 'task': task, 'questions': q, 'prompt': prompt}
             file.write(json.dumps(sample) + '\n')
             numSamplesGen+=1
