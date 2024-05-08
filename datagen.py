@@ -4,14 +4,19 @@ from transformers import pipeline
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import os
 import time
+import argparse
 import re
 
 t0 = time.time()
-batchSize = 160
 numSamplesReq = 1000
 numSamplesGen = 0
 nTurns = 5
 safetyRatio = 0.5
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--batch_size', type=int, default=128, help='Batch size for text generation')
+args = parser.parse_args()
+batchSize = args.batch_size
 
 model_id = "mistralai/Mistral-7B-Instruct-v0.2"
 print(f"Running on {model_id} - batch size {batchSize}")
