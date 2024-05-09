@@ -11,7 +11,8 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-logLine("Starting oversized batch test")
+testName = "large_resps"
+logLine(f"Starting {testName} test")
 
 t0 = time.time()
 numSamplesReq = 1000
@@ -85,4 +86,4 @@ with open(samplesFile, 'a') as file:
             numSamplesGen+=1
         logLine(f"tReq = {tBatchEnd - tBatchStart} - {numSamplesGen} / {numSamplesReq}")
     tGenEnd = time.time()
-logLine(f"Oversized batch test it/s {numSamplesGen/(tGenEnd-tGenStart)}")
+logLine(f"{testName} it/s {numSamplesGen/(tGenEnd-tGenStart)}")
