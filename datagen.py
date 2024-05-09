@@ -11,11 +11,11 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-testName = "compilation"
+testName = "baseline"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
-numSamplesReq = 1000
+numSamplesReq = 10000
 numSamplesGen = 0
 nTurns = 5
 safetyRatio = 0.5
@@ -29,10 +29,10 @@ model_id = "mistralai/Mistral-7B-Instruct-v0.2"
 logLine(f"Running on {model_id} - batch size {batchSize}")
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(model_id, load_in_8bit=True, device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
-logLine(f"Compiling model")
-model = model.compile()
-logLine(f"Compiled model")
-# model.eval()
+# logLine(f"Compiling model")
+# model = model.compile()
+# logLine(f"Compiled model")
+model.eval()
 llm = pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize, max_new_tokens=nTurns*40)
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 logLine(f"Loaded models in {time.time()-t0:.2f} seconds")
