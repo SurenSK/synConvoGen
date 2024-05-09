@@ -8,6 +8,7 @@ import argparse
 import re
 
 def logLine(l):
+    return
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
@@ -74,13 +75,13 @@ with open(samplesFile, 'a') as file:
         tBatchStart = time.time()
         questions, prompt = generate_questions(task, isSafe)
         tBatchEnd = time.time()
-        for q in questions:
-            # logLine("*"*50)
-            # logLine(q)
-            # logLine("*"*50)
-            sample = {'id': numSamplesGen, 'task': task, 'questions': q, 'prompt': prompt}
-            file.write(json.dumps(sample) + '\n')
-            numSamplesGen+=1
+        # for q in questions:
+        #     # logLine("*"*50)
+        #     # logLine(q)
+        #     # logLine("*"*50)
+        #     sample = {'id': numSamplesGen, 'task': task, 'questions': q, 'prompt': prompt}
+        #     file.write(json.dumps(sample) + '\n')
+        #     numSamplesGen+=1
         logLine(f"tReq = {tBatchEnd - tBatchStart} - {numSamplesGen} / {numSamplesReq}")
     tGenEnd = time.time()
     logLine(f"it/s {numSamplesGen/(tGenEnd-tGenStart)}")
