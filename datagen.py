@@ -12,7 +12,7 @@ def logLine(l):
         log_file.write(str(l) + "\n")
 
 testName = "large_resps"
-logLine(f"Starting {testName} test")
+logLine(f"***Starting {testName} test")
 
 t0 = time.time()
 numSamplesReq = 1000
@@ -86,4 +86,4 @@ with open(samplesFile, 'a') as file:
             numSamplesGen+=1
         logLine(f"tReq = {tBatchEnd - tBatchStart} - {numSamplesGen} / {numSamplesReq}")
     tGenEnd = time.time()
-logLine(f"{testName} it/s {numSamplesGen/(tGenEnd-tGenStart)}")
+logLine(f"***{testName} it/s {numSamplesGen/(tGenEnd-tGenStart)}")
