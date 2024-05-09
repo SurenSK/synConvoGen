@@ -16,7 +16,7 @@ logLine("Starting oversized batch test")
 t0 = time.time()
 numSamplesReq = 1000
 numSamplesGen = 0
-nTurns = 5
+nTurns = 50
 safetyRatio = 0.5
 
 parser = argparse.ArgumentParser()
