@@ -11,7 +11,7 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-testName = "large_resps"
+testName = "compilation"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
