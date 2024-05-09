@@ -12,6 +12,9 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
+
+with open("log.txt", "a") as log_file:
+    log_file.write(f"No IO test start\n")
 t0 = time.time()
 numSamplesReq = 1000
 numSamplesGen = 0
