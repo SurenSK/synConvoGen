@@ -84,4 +84,6 @@ with open(samplesFile, 'a') as file:
         #     numSamplesGen+=1
         logLine(f"tReq = {tBatchEnd - tBatchStart} - {numSamplesGen} / {numSamplesReq}")
     tGenEnd = time.time()
-    logLine(f"it/s {numSamplesGen/(tGenEnd-tGenStart)}")
+print(f"it/s {numSamplesGen/(tGenEnd-tGenStart)}")
+with open("log.txt", "a") as log_file:
+    log_file.write(f"No IO test it/s {numSamplesGen/(tGenEnd-tGenStart)}\n")
