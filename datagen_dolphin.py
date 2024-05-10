@@ -15,7 +15,7 @@ testName = "Dolphin test"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
-numSamplesReq = 5
+numSamplesReq = 100
 numSamplesGen = 0
 nTurns = 5
 safetyRatio = 0.5
