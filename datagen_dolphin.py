@@ -75,6 +75,7 @@ def generate_questions():
 
 # Write samples to file
 with open(samplesFile, 'a') as file:
+    print(f"***{testName} started", file=file)
     while numSamplesGen < numSamplesReq:
         tGenStart = time.time()
         logLine(f"Starting generation at {tGenStart}")
