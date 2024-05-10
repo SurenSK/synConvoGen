@@ -85,3 +85,4 @@ with open(samplesFile, 'a') as file:
             numSamplesGen += 1
         tGenEnd = time.time()
         logLine(f"***{testName} it/s {numSamplesGen / (tGenEnd - tGenStart)}")
+        file.write(f"***it/s {numSamplesGen / (tGenEnd - tGenStart)}\n")
