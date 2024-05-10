@@ -79,6 +79,8 @@ def generate_questions():
 with open(samplesFile, 'a') as file:
     while numSamplesGen < numSamplesReq:
         tGenStart = time.time()
+        logLine(f"Starting generation at {tGenStart}")
+        file.write(f"Starting generation at {tGenStart}\n")
         questions = generate_questions()
         for i, q in enumerate(questions):
             file.write(json.dumps(q) + "\n")
