@@ -76,9 +76,11 @@ def generate_questions():
 
 # Write samples to file
 with open(samplesFile, 'a') as file:
-    tGenStart = time.time()
-    questions = generate_questions()
-    for i,q in enumerate(questions):
-        file.write(json.dumps(q) + "\n")
-    tGenEnd = time.time()
-logLine(f"***{testName} it/s {numSamplesGen/(tGenEnd-tGenStart)}")
+    while numSamplesGen < numSamplesReq:
+        tGenStart = time.time()
+        questions = generate_questions()
+        for i, q in enumerate(questions):
+            file.write(json.dumps(q) + "\n")
+            numSamplesGen += 1
+        tGenEnd = time.time()
+        logLine(f"***{testName} it/s {numSamplesGen / (tGenEnd - tGenStart)}")
