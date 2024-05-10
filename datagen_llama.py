@@ -25,10 +25,11 @@ parser.add_argument('--batch_size', type=int, default=128, help='Batch size for 
 args = parser.parse_args()
 batchSize = args.batch_size
 
-model_id = "meta-llama/Meta-Llama-3-8B-Instruct"
+# model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # Small model, test
+model_id = "meta-llama/Meta-Llama-3-70B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, load_in_8bit=True, cache_dir=".", do_sample=True, temperature=2.5, num_beams=5, token="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")
+    model_id, cache_dir=".", load_in_8bit = True, do_sample=True, temperature=2.5, num_beams=5, token="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")
 # logLine(f"Compiling model")
 # model = model.compile()
 # logLine(f"Compiled model")
