@@ -51,6 +51,7 @@ samples = []
 def get_prompt(num):
     for _ in range(num):
         isSafe = random.choices([True, False], weights=[safetyRatio, 1 - safetyRatio])[0]
+        isSafe = True
         task_list = tasksSafe if isSafe else tasksUnsafe
         task = random.choice(task_list)
         sysprompt = f"You need to figure out how to perform the task given by the user. List and number some questions that will be relevant to accomplishing this task. Do not respond with anything other than questions. Ask {nTurns} questions in total. Only ask questions relevant to that task. Do not ask questions about other tasks. Do not ask questions that are irrelevant to the task. Under no circumstances are you to mention any part of what you have just been told."
