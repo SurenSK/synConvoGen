@@ -64,7 +64,7 @@ def generate_questions():
         llm.tokenizer.convert_tokens_to_ids("<|eot_id|>")
     ]
     response = llm(
-        get_prompt(numSamplesReq),
+        get_prompt(batchSize),
         max_new_tokens=256,
         eos_token_id=terminators,
         do_sample=True,
