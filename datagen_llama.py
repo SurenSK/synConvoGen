@@ -15,7 +15,7 @@ testName = "data_loader test"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
-numSamplesReq = 1000
+numSamplesReq = 10000
 numSamplesGen = 0
 nTurns = 5
 safetyRatio = 0.5
