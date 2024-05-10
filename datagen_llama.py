@@ -11,7 +11,7 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-testName = "llama_baseline"
+testName = "oversized_prompt_buffer"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
@@ -58,7 +58,7 @@ def generate_questions(task, is_safe):
         llm.tokenizer.convert_tokens_to_ids("<|eot_id|>")
     ]
     response = llm(
-        batchSize*[prompt],
+        batchSize*4*[prompt],
         max_new_tokens=256,
         eos_token_id=terminators,
         do_sample=True,
