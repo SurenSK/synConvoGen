@@ -59,7 +59,6 @@ def get_prompt(num):
         yield llm.tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
 
 def generate_questions():
-    t0 = time.time()
     terminators = [
         llm.tokenizer.eos_token_id,
         llm.tokenizer.convert_tokens_to_ids("<|eot_id|>")
@@ -80,13 +79,11 @@ with open(samplesFile, 'a') as file:
     while numSamplesGen < numSamplesReq:
         tGenStart = time.time()
         logLine(f"Starting generation at {tGenStart}")
-        file.write(f"Starting generation at {tGenStart}\n")
         questions = generate_questions()
-        for i, q in enumerate(questions):
-            logLine(q)
-            file.write(q + "\n")
-            numSamplesGen += 1
         tGenEnd = time.time()
         logLine(f"***{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
-        file.write(f"***it/s {batchSize / (tGenEnd - tGenStart)}\n")
-    file.write(f"***{testName} completed\n")
+        for q in questions:
+            file.write(q)
+            numSamplesGen += 1
+            logLine(f"Wrote sample {numSamplesGen} to file")
+    logLine(f"***{testName} completed\n")
