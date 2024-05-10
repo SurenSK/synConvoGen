@@ -71,7 +71,6 @@ def generate_questions():
         temperature=0.6,
         top_p=0.9,
     )
-    logLine(response)
     return response
 
 # Write samples to file
@@ -83,7 +82,7 @@ with open(samplesFile, 'a') as file:
         for q in questions:
             print(q, file=file)
             numSamplesGen += 1
-            logLine(f"Wrote sample {numSamplesGen} to file")
+            logLine(f"Wrote sample {numSamplesGen} to file {file.name}")
         tGenEnd = time.time()
         logLine(f"***{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
     logLine(f"***{testName} completed\n")
