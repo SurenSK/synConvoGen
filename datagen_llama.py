@@ -31,7 +31,7 @@ batchSize = args.batch_size
 model_id = "meta-llama/Meta-Llama-3-70B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, cache_dir=".", do_sample=True, temperature=2.5, num_beams=5, token="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")
+    model_id, cache_dir=".", device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
 # logLine(f"Compiling model")
 # model = model.compile()
 # logLine(f"Compiled model")
