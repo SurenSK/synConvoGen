@@ -80,10 +80,10 @@ with open(samplesFile, 'a') as file:
         tGenStart = time.time()
         logLine(f"Starting generation at {tGenStart}")
         questions = generate_questions()
-        tGenEnd = time.time()
-        logLine(f"***{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
         for q in questions:
             file.write(q)
             numSamplesGen += 1
             logLine(f"Wrote sample {numSamplesGen} to file")
+        tGenEnd = time.time()
+        logLine(f"***{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
     logLine(f"***{testName} completed\n")
