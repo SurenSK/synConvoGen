@@ -11,7 +11,7 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-testName = "data_loader test"
+testName = "4x 8bit 70b test"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
@@ -86,3 +86,4 @@ with open(samplesFile, 'a') as file:
         tGenEnd = time.time()
         logLine(f"***{testName} it/s {numSamplesGen / (tGenEnd - tGenStart)}")
         file.write(f"***it/s {numSamplesGen / (tGenEnd - tGenStart)}\n")
+    file.write(f"***{testName} completed\n")
