@@ -81,7 +81,7 @@ with open(samplesFile, 'a') as file:
         logLine(f"Starting generation at {tGenStart}")
         questions = generate_questions()
         for q in questions:
-            file.write(q)
+            print(q, file=file)
             numSamplesGen += 1
             logLine(f"Wrote sample {numSamplesGen} to file")
         tGenEnd = time.time()
