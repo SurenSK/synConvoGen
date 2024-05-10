@@ -34,12 +34,12 @@ samplesFile = args.file_name
 model_id = "meta-llama/Meta-Llama-3-70B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, cache_dir=".", device_map="auto", load_in_8bit=True, do_sample=True, temperature=2.5, num_beams=5, token="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")
+    model_id, cache_dir=".", load_in_8bit=True, do_sample=True, temperature=2.5, num_beams=5, token="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")
 # logLine(f"Compiling model")
 # model = model.compile()
 # logLine(f"Compiled model")
 model.eval()
-llm = transformers.pipeline("text-generation", device_map="auto", model=model, tokenizer=tokenizer, batch_size=batchSize)
+llm = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize)
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 logLine(f"Loaded models in {time.time() - t0:.2f} seconds")
 
