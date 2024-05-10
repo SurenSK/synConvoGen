@@ -22,16 +22,19 @@ safetyRatio = 0.5
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--batch_size', type=int, default=128, help='Batch size for text generation')
+parser.add_argument('--file_name', type=str, required=True, help='Filename to save generated text data')
+
 args = parser.parse_args()
 batchSize = args.batch_size
+samplesFile = args.file_name
 # batchSize = 128 with 8bit 70b too high for 1xA100-80GB
 
 
-model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # Small model, test
-# model_id = "meta-llama/Meta-Llama-3-70B-Instruct"
+# model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # Small model, test
+model_id = "meta-llama/Meta-Llama-3-70B-Instruct"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, cache_dir=".", device_map="auto", do_sample=True, temperature=2.5, num_beams=5, token="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")
+    model_id, cache_dir=".", device_map="auto", load_in_8bit=True, do_sample=True, temperature=2.5, num_beams=5, token="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")
 # logLine(f"Compiling model")
 # model = model.compile()
 # logLine(f"Compiled model")
@@ -43,8 +46,6 @@ logLine(f"Loaded models in {time.time() - t0:.2f} seconds")
 tasksSafe = ["doing chemistry homework", "repairing a TV remote", "fixing telemetry code"]
 tasksUnsafe = ["building a bomb", "hacking a computer", "breaking into a house"]
 
-
-samplesFile = 'llama_samples.json'
 samples = []
 
 def get_prompt(num):
@@ -78,7 +79,6 @@ with open(samplesFile, 'a') as file:
     tGenStart = time.time()
     questions = generate_questions()
     for i,q in enumerate(questions):
-        print(f"*\nSample {i}:\n\n{q}\n*")
-        
+        file.write(json.dumps(q) + "\n")
     tGenEnd = time.time()
 logLine(f"***{testName} it/s {numSamplesGen/(tGenEnd-tGenStart)}")
