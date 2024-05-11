@@ -29,8 +29,8 @@ args = parser.parse_args()
 batchSize = args.batch_size
 samplesFile = args.file_name
 
-# model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
-model_id = "cognitivecomputations/dolphin-2.9-llama3-70b"
+# model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # Small model, test
+model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 tokenizer.padding_side = "left"
 model = AutoModelForCausalLM.from_pretrained(
