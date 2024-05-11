@@ -12,7 +12,7 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-testName = "Dolphin test"
+testName = "Compilation + Padding test"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
@@ -34,6 +34,7 @@ samplesFile = args.file_name
 # model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # Small model, test
 model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
+tokenizer.padding_side = "left"
 model = AutoModelForCausalLM.from_pretrained(
     model_id, cache_dir=".", load_in_8bit=True, do_sample=True, temperature=2.5, num_beams=5, token="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")
 logLine(f"Loaded model and tokenizer in {time.time() - t0:.2f} seconds")
