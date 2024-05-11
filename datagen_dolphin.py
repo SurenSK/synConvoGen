@@ -6,6 +6,7 @@ import time
 import re
 import argparse
 from transformers import AutoTokenizer, AutoModelForCausalLM
+import torch
 
 def logLine(l):
     with open("log.txt", "a") as log_file:
@@ -35,11 +36,17 @@ model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 model = AutoModelForCausalLM.from_pretrained(
     model_id, cache_dir=".", load_in_8bit=True, do_sample=True, temperature=2.5, num_beams=5, token="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")
+logLine(f"Loaded model and tokenizer in {time.time() - t0:.2f} seconds")
+model.generation_config.cache_implementation = "static"
+logLine(f"Set cache implementation to static")
+model = torch.compile(model, mode="reduce-overhead", fullgraph=True)
+logLine(f"Compiled model")
 # logLine(f"Compiling model")
 # model = model.compile()
 # logLine(f"Compiled model")
 model.eval()
 llm = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize)
+logLine(f"Created pipeline")
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 logLine(f"Loaded models in {time.time() - t0:.2f} seconds")
 
