@@ -34,7 +34,7 @@ model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 tokenizer.padding_side = "left"
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, cache_dir=".", attn_implementation="flash_attention_2", do_sample=True, temperature=2.5, num_beams=5, token="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")
+    model_id, cache_dir=".", torch_dtype=torch.bfloat16, attn_implementation="flash_attention_2", do_sample=True, temperature=2.5, num_beams=5, token="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")
 logLine(f"Loaded model and tokenizer in {time.time() - t0:.2f} seconds")
 model.generation_config.cache_implementation = "static"
 logLine(f"Set cache implementation to static")
