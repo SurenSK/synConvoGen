@@ -28,23 +28,19 @@ parser.add_argument('--file_name', type=str, required=True, help='Filename to sa
 args = parser.parse_args()
 batchSize = args.batch_size
 samplesFile = args.file_name
-# batchSize = 128 with 8bit 70b too high for 1xA100-80GB
-
 
 # model_id = "meta-llama/Meta-Llama-3-8B-Instruct" # Small model, test
 model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 tokenizer.padding_side = "left"
 model = AutoModelForCausalLM.from_pretrained(
-    model_id, cache_dir=".", load_in_8bit=True, do_sample=True, temperature=2.5, num_beams=5, token="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")
+    model_id, cache_dir=".", load_in_8bit=True, attn_implementation="flash_attention_2", do_sample=True, temperature=2.5, num_beams=5, token="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")
 logLine(f"Loaded model and tokenizer in {time.time() - t0:.2f} seconds")
 model.generation_config.cache_implementation = "static"
 logLine(f"Set cache implementation to static")
 model = torch.compile(model, mode="reduce-overhead", fullgraph=True)
 logLine(f"Compiled model")
-# logLine(f"Compiling model")
-# model = model.compile()
-# logLine(f"Compiled model")
+
 model.eval()
 llm = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize)
 logLine(f"Created pipeline")
@@ -86,7 +82,7 @@ with open(samplesFile, 'a') as file:
     print(f"***{testName} started", file=file)
     while numSamplesGen < numSamplesReq:
         tGenStart = time.time()
-        logLine(f"Starting generation at {tGenStart}")
+        logLine(f"Starting generation of {testName} - {numSamplesGen}/{numSamplesReq} samples")
         questions = generate_questions()
         for q in questions:
             print(q)
@@ -94,5 +90,5 @@ with open(samplesFile, 'a') as file:
             numSamplesGen += 1
             logLine(f"Wrote sample {numSamplesGen} to file {file.name}")
         tGenEnd = time.time()
-        logLine(f"***{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
+        logLine(f"*{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
     logLine(f"***{testName} completed\n")
