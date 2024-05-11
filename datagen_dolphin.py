@@ -81,13 +81,13 @@ def generate_questions():
 with open(samplesFile, 'a') as file:
     print(f"***{testName} started", file=file)
     while numSamplesGen < numSamplesReq:
-        tGenStart = time.time()
         logLine(f"Starting generation of {testName} - {numSamplesGen}/{numSamplesReq} samples")
+        tGenStart = time.time()
         questions = generate_questions()
         for q in questions:
             print(q, file=file)
             numSamplesGen += 1
-        logLine(f"Wrote sample {numSamplesGen} to file {file.name}")
         tGenEnd = time.time()
+        logLine(f"Wrote sample {numSamplesGen} to file {file.name}")
         logLine(f"*{testName} it/s {batchSize / (tGenEnd - tGenStart)}")
     logLine(f"***{testName} completed\n")
