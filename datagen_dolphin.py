@@ -29,8 +29,8 @@ args = parser.parse_args()
 batchSize = args.batch_size
 samplesFile = args.file_name
 
-# model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
-model_id = "cognitivecomputations/dolphin-2.9-llama3-70b"
+model_id = "cognitivecomputations/dolphin-2.9-llama3-8b"
+# model_id = "cognitivecomputations/dolphin-2.9-llama3-70b"
 tokenizer = AutoTokenizer.from_pretrained(model_id, token="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")
 tokenizer.padding_side = "left"
 model = AutoModelForCausalLM.from_pretrained(
@@ -44,7 +44,7 @@ logLine(f"Compiled model")
 model.eval()
 llm = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize)
 
-logLine(f"{llm.hf_device_map}")
+logLine(f"{model.hf_device_map}")
 logLine(f"Created pipeline")
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 logLine(f"Loaded models in {time.time() - t0:.2f} seconds")
