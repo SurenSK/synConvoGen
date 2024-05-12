@@ -43,6 +43,8 @@ logLine(f"Compiled model")
 
 model.eval()
 llm = transformers.pipeline("text-generation", model=model, tokenizer=tokenizer, batch_size=batchSize)
+
+logLine(f"{llm.hf_device_map}")
 logLine(f"Created pipeline")
 llm.tokenizer.pad_token_id = model.config.eos_token_id
 logLine(f"Loaded models in {time.time() - t0:.2f} seconds")
