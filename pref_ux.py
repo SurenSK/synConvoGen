@@ -50,7 +50,14 @@ def update_scores(winner):
     return display_texts()[0], display_texts()[1], scoreboard, log_output
 
 def gradio_ui():
-    with gr.Blocks() as demo:
+    css = """
+    #scoreboard, #log_output {
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    """
+
+    with gr.Blocks(css=css) as demo:
         with gr.Row():
             with gr.Column(scale=4):
                 text_a = gr.Textbox(lines=10, label="Text A")
@@ -62,8 +69,10 @@ def gradio_ui():
             right_btn = gr.Button("Right (D)")
 
         with gr.Row():
-            scoreboard = gr.Textbox(lines=10, label="Scoreboard")
-            log_output = gr.Textbox(lines=10, label="Selection Log")
+            with gr.Column():
+                scoreboard = gr.Textbox(lines=10, label="Scoreboard", interactive=False, max_lines=10, elem_id="scoreboard")
+            with gr.Column():
+                log_output = gr.Textbox(lines=10, label="Selection Log", interactive=False, max_lines=10, elem_id="log_output")
 
         def update_ui(winner):
             text_a_val, text_b_val, scores, log = update_scores(winner)
