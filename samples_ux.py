@@ -16,7 +16,7 @@ with open("samples4.json", "r") as f:
         id_counter += 1
         sample = json.loads(line)
         text_id = str(id_counter)
-        text_content = sample.get("prompts")  # Assuming "prompts" is the key for the text content
+        text_content = sample.get("prompts") + "*"*100 + "\n" + sample.get("genPrompt")  # Assuming "prompts" is the key for the text content
         if text_id and text_content:
             texts[text_id] = text_content
             elo_ratings[text_id] = 1200
