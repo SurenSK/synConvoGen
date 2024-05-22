@@ -71,7 +71,7 @@ def generate_questions():
     ]
     response = llm(
         get_prompt(batchSize),
-        max_new_tokens=256,
+        max_new_tokens=nTurns * 64,
         eos_token_id=terminators,
         do_sample=True,
         temperature=0.6,
