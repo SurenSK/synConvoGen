@@ -79,7 +79,15 @@ def generate_questions():
     )
     return response
 
-# Write samples to file
+import re
+startToken = "<\|im_start\|>"
+endToken = "<\|im_end\|>"
+def parse_response(response):
+    r = response[0]["generated_text"]
+    r = re.sub(f"\n{startToken}|{startToken}", "", r)
+    r = re.split(f"{endToken}", r)
+    return r
+
 with open(samplesFile, 'a') as file:
     print(f"***{testName} started", file=file)
     file.write("Starting gen\n")
@@ -88,7 +96,9 @@ with open(samplesFile, 'a') as file:
         tGenStart = time.time()
         questions = generate_questions()
         for q in questions:
-            file.write(f"{q}\n")
+            p,t,r = parse_response(q)
+            entry = {"id": numSamplesGen, "genPrompt": p, "task": t, "prompts": r}
+            file.write(json.dumps(entry) + '\n')
             numSamplesGen += 1
         tGenEnd = time.time()
         logLine(f"Wrote sample {numSamplesGen} to file {file.name}")
