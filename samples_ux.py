@@ -11,7 +11,7 @@ elo_ratings = {}
 id_counter = 0
 
 # Load texts from JSONL file
-with open("samples.jsonl", "r") as f:
+with open("samples4.json", "r") as f:
     for line in f:
         id_counter += 1
         sample = json.loads(line)
@@ -54,7 +54,7 @@ def update_scores(winner):
     return display_texts()[0], display_texts()[1], scoreboard, log_output
 
 def gradio_ui():
-    with gr.Blocks() as demo:
+    with gr.Blocks() as demo:        
         with gr.Row():
             with gr.Column(scale=4):
                 text_a = gr.Textbox(lines=10, label="Text A")
