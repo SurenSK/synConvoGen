@@ -83,7 +83,7 @@ with open(samplesFile, 'a') as file:
         file.write(f"Starting generation at {tGenStart}\n")
         questions = generate_questions()
         for i, q in enumerate(questions):
-            file.write(json.dumps(q) + "\n")
+            file.write(json.dumps(q) + ",\n")
             numSamplesGen += 1
         tGenEnd = time.time()
         logLine(f"***{testName} it/s {numSamplesGen / (tGenEnd - tGenStart)}")
