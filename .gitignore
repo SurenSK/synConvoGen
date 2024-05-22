@@ -4,5 +4,6 @@ test.py
 scratch.py
 scratch2.py
 scratch3.py
+pref_ux.py
 .env
 *.log
