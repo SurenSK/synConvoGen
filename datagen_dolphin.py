@@ -12,7 +12,7 @@ def logLine(l):
     with open("log.txt", "a") as log_file:
         log_file.write(str(l) + "\n")
 
-testName = "Compilation + Padding test"
+testName = "test run"
 logLine(f"***Starting {testName} test")
 
 t0 = time.time()
@@ -82,12 +82,13 @@ def generate_questions():
 # Write samples to file
 with open(samplesFile, 'a') as file:
     print(f"***{testName} started", file=file)
+    file.write("Starting gen\n")
     while numSamplesGen < numSamplesReq:
         logLine(f"Starting generation of {testName} - {numSamplesGen}/{numSamplesReq} samples")
         tGenStart = time.time()
         questions = generate_questions()
         for q in questions:
-            print(q, file=file)
+            file.write(q + "\n")
             numSamplesGen += 1
         tGenEnd = time.time()
         logLine(f"Wrote sample {numSamplesGen} to file {file.name}")
