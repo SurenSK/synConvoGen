@@ -69,7 +69,7 @@ def gradio_ui():
             with gr.Column():
                 scoreboard = gr.Textbox(lines=10, label="Scoreboard", max_lines=10, elem_id="scoreboard")
             with gr.Column():
-                log_output = gr.Textbox(lines=10, label="Selection Log", max_lines=10, elem_id="log_output")
+                log_output = gr.Textbox(lines=10, label="Selection Log", max_lines=10, elem_id="log_output", show_copy_button=True)
 
         def update_ui(winner):
             text_a_val, text_b_val, scores, log = update_scores(winner)
